@@ -1,15 +1,28 @@
-// Get all the prices
-const prices = document.querySelectorAll('.price');
+document.body.appendChild(getSumBtn);
 
-// Calculate the total price
-let totalPrice = 0;
-prices.forEach(price => {
-  totalPrice += parseFloat(price.textContent);
-});
+const getSum = () => {
+//Add your code here
 
-// Create a new row with the total price
-const table = document.querySelector('table');
-const newRow = table.insertRow(-1);
-const newCell = newRow.insertCell(0);
-newCell.colSpan = 2;
-newCell.innerHTML = `Total Price: $${totalPrice.toFixed(2)}`;
+  getSumBtn.disabled = true;
+  const prices = document.querySelectorAll(".price");
+  let totalPrice = 0;
+  prices.forEach((price) => {
+    const value = parseInt(price.textContent);
+    if (!Number.isNaN(value)) {
+      totalPrice += value;
+    }
+  });
+  const totalPriceRow = document.createElement("tr");
+  totalPriceRow.id = "ans";
+  const totalPriceData = document.createElement("td");
+  const totalPriceAns = document.createElement("td");
+  totalPriceRow.appendChild(totalPriceData);
+  totalPriceRow.appendChild(totalPriceAns);
+  const data = `Total Price (in Rs): `;
+  totalPriceData.append(data);
+  totalPriceAns.append(`${totalPrice}`);
+  const table = document.querySelector("tbody");
+  table.appendChild(totalPriceRow);
+};
+
+getSumBtn.addEventListener("click", getSum);
